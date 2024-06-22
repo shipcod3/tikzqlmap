@@ -1,4 +1,6 @@
 import argparse
+import requests
+from bs4 import BeautifulSoup
 
 tikz = '''
                                      /~\\                            
@@ -25,12 +27,49 @@ ________________[_]_[_]_[_]________/_]_[_\\_________________________
 -= automatic pwet grabber exploitation and fingerprinting tool =-
 '''
 
+def wafnuke(url):
+    # Example implementation of bypassing a WAF (this is just a placeholder)
+    print("Attempting to bypass web application firewall at:", url)
+    # Add real WAF bypassing code here
+
+def grab_pwet(url):
+    # Example implementation of downloading images (this is just a placeholder)
+    print("Downloading ass pics from:", url)
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    images = soup.find_all('img')
+    for img in images:
+        img_url = img.get('src')
+        if img_url:
+            # Here you would download the image
+            print("Found image:", img_url)
+
+def fingerprint(url):
+    # Example implementation of fingerprinting a website (this is just a placeholder)
+    print("Fingerprinting the website at:", url)
+    response = requests.get(url)
+    headers = response.headers
+    for header, value in headers.items():
+        print(f"{header}: {value}")
+
+def crawl(url):
+    # Example implementation of crawling a website (this is just a placeholder)
+    print("Crawling the website recursively at:", url)
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    links = soup.find_all('a')
+    for link in links:
+        href = link.get('href')
+        if href and href.startswith('http'):
+            print("Found link:", href)
+            # You might want to recursively call crawl(href) here
+
 def main():
     parser = argparse.ArgumentParser(description='Automatic PWET grabber exploitation and fingerprinting tool')
     
     parser.add_argument('-w', '--wafnuke', action='store_true', help='try to bypass web application firewall')
     parser.add_argument('--grab-pwet', action='store_true', help='downloads ass pics')
-    parser.add_argument('-u', '--url', type=str, help='URL of the website')
+    parser.add_argument('-u', '--url', type=str, required=True, help='URL of the website')
     parser.add_argument('-f', '--finger', action='store_true', help='fingerprints the website')
     parser.add_argument('--crawl', action='store_true', help='crawls the website recursively based on the hyperlinks')
     
@@ -39,24 +78,16 @@ def main():
     print(tikz)
     
     if args.wafnuke:
-        print("Attempting to bypass web application firewall...")
-        # Add your wafnuke code here
+        wafnuke(args.url)
     
     if args.grab_pwet:
-        print("Downloading ass pics...")
-        # Add your grab-pwet code here
-    
-    if args.url:
-        print(f"Target URL: {args.url}")
-        # Add your code to handle the URL here
+        grab_pwet(args.url)
     
     if args.finger:
-        print("Fingerprinting the website...")
-        # Add your fingerprinting code here
+        fingerprint(args.url)
     
     if args.crawl:
-        print("Crawling the website recursively based on the hyperlinks...")
-        # Add your crawling code here
+        crawl(args.url)
 
 if __name__ == "__main__":
     main()
