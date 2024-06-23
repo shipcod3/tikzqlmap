@@ -36,7 +36,7 @@ def wafnuke(url):
     # Add real WAF bypassing code here
 
 def grab_pwet(url):
-    print("Downloading and analyzing images from:", url)
+    print("Downloading and analyzing pwet images from:", url)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     images = soup.find_all('img')
